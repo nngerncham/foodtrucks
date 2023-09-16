@@ -17,6 +17,8 @@ services:
   foodtrucks-backend:
     image: ft-backend
     build: ./backend
+    ports:
+      - "5555:5000"
     depends_on:
       - es
     networks:
