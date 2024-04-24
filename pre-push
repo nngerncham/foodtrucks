@@ -1,0 +1,21 @@
+#!/bin/bash
+
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+REPO_NAME="nngerncham/foodtrucks"
+
+docker buildx build \
+    --no-cache \
+    --platform linux/amd64,linux/arm64/v8 \
+    --tag "ghcr.io/$REPO_NAME/ft-frontend:$(git rev-parse --short=6 head)" \
+    --tag "ghcr.io/$REPO_NAME/ft-frontend:latest" \
+    --push \
+    $PROJECT_ROOT/frontend/
+
+docker buildx build \
+    --no-cache \
+    --platform linux/amd64,linux/arm64/v8 \
+    --tag "ghcr.io/$REPO_NAME/ft-backend:$(git rev-parse --short=6 head)" \
+    --tag "ghcr.io/$REPO_NAME/ft-backend:latest" \
+    --push \
+    $PROJECT_ROOT/backend/
+
